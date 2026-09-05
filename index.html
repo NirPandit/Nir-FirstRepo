@@ -11,15 +11,38 @@
 
     <div class="wrapper">
         <!-- Sidebar Navigation -->
+                <!-- Sidebar Navigation -->
         <div class="sidebar">
             <h4>.NET Admin</h4>
             <hr>
             <ul>
                 <li><a href="#">📊 Dashboard</a></li>
-                <li><a href="#" class="active">👥 Users</a></li>
-                <li><a href="#">⚙️ Settings</a></li>
+                
+                <!-- Users Module Link (With Submenu Items) -->
+                <li class="has-submenu">
+                    <a href="#" class="active submenu-toggle">
+                        👥 Users <span class="arrow">▼</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">📋 All Users</a></li>
+                        <li><a href="#">🔒 Roles & Permissions</a></li>
+                        <li><a href="#">📈 Activity Logs</a></li>
+                    </ul>
+                </li>
+                
+                <!-- Settings Module Link (With Submenu Items) -->
+                <li class="has-submenu">
+                    <a href="#" class="submenu-toggle">
+                        ⚙️ Settings <span class="arrow">▼</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">🖥️ System Config</a></li>
+                        <li><a href="#">💾 Database Backup</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
+
 
         <!-- Main Workspace Area -->
         <div class="main-content">
