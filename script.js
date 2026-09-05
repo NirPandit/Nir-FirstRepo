@@ -58,4 +58,26 @@ function deleteRow(actionButtonTarget) {
     if (confirm("Are you sure you want to remove this user from the prototype list?")) {
         actionButtonTarget.closest('tr').remove();
     }
+    document.getElementById('search-users').addEventListener('keyup', function() {
+    // 1. Get the text the user typed and convert it to lowercase
+    let filter = this.value.toLowerCase();
+    
+    // 2. Select all rows inside your table body
+    let rows = document.querySelectorAll('table tbody tr');
+    
+    // 3. Loop through each row to check if it matches the search query
+    rows.forEach(row => {
+        // Get the text content of the Name and Email columns
+        let name = row.cells[0].textContent.toLowerCase();
+        let email = row.cells[1].textContent.toLowerCase();
+        
+        // If either the name or email includes the search text, show the row; otherwise, hide it
+        if (name.includes(filter) || email.includes(filter)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+
 }
