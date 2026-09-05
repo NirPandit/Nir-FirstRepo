@@ -58,6 +58,7 @@ function deleteRow(actionButtonTarget) {
     if (confirm("Are you sure you want to remove this user from the prototype list?")) {
         actionButtonTarget.closest('tr').remove();
     }
+}
     document.getElementById('search-users').addEventListener('keyup', function() {
     // 1. Get the text the user typed and convert it to lowercase
     let filter = this.value.toLowerCase();
@@ -79,5 +80,3 @@ function deleteRow(actionButtonTarget) {
         }
     });
 });
-
-}
