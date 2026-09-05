@@ -7,51 +7,57 @@ const userForm = document.getElementById('userForm');
 const userTableBody = document.getElementById('userTableBody');
 
 // Logic To Open Modal UI Window Component
-openModalBtn.addEventListener('click', () => {
-    modal.classList.add('active');
-});
+if (openModalBtn) {
+    openModalBtn.addEventListener('click', () => {
+        modal.classList.add('active');
+    });
+}
 
 // Logic To Close and Reset Input Elements Inside Modal Window Component
 const closeModalWindow = () => {
-    modal.classList.remove('active');
-    userForm.reset(); 
+    if (modal) modal.classList.remove('active');
+    if (userForm) userForm.reset(); 
 };
 
-closeModalBtn.addEventListener('click', closeModalWindow);
-cancelModalBtn.addEventListener('click', closeModalWindow);
+if (closeModalBtn) closeModalBtn.addEventListener('click', closeModalWindow);
+if (cancelModalBtn) cancelModalBtn.addEventListener('click', closeModalWindow);
 
 // Logic to Append New User Row Segment Into Data Table Structure View
-userForm.addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevents standard page postback reloads
+if (userForm) {
+    userForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevents standard page postback reloads
 
-    // Extract values directly from client inputs
-    const inputName = document.getElementById('userName').value;
-    const inputEmail = document.getElementById('userEmail').value;
-    const inputRole = document.getElementById('userRole').value;
+        // Extract values directly from client inputs
+        const inputName = document.getElementById('userName').value;
+        const inputEmail = document.getElementById('userEmail').value;
+        const inputRole = document.getElementById('userRole').value;
 
-    // Compute appropriate badge color layout styles conditionally based on roles
-    let dynamicBadgeClass = 'bg-secondary';
-    if (inputRole === 'Admin') {
-        dynamicBadgeClass = 'bg-success';
-    } else if (inputRole === 'Developer') {
-        dynamicBadgeClass = 'bg-primary';
-    }
+        // Compute appropriate badge color layout styles conditionally based on roles
+        let dynamicBadgeClass = 'bg-secondary';
+        if (inputRole === 'Admin') {
+            dynamicBadgeClass = 'bg-success';
+        } else if (inputRole === 'Developer') {
+            dynamicBadgeClass = 'bg-primary';
+        }
 
-    // Create container element representation for rows
-    const createdTableRowRow = document.createElement('tr');
-    createdTableRowRow.innerHTML = `
-        <td style="font-weight: 600;">${inputName}</td>
-        <td>${inputEmail}</td>
-        <td><span class="badge ${dynamicBadgeClass}">${inputRole}</span></td>
-        <td><button class="btn-action" onclick="deleteRow(this)">🗑️ Delete</button></td>
-    `;
+        // Create container element representation for rows
+        const createdTableRowRow = document.createElement('tr');
+        createdTableRowRow.innerHTML = `
+            <td style="font-weight: 600;">${inputName}</td>
+            <td>${inputEmail}</td>
+            <td><span class="badge ${dynamicBadgeClass}">${inputRole}</span></td>
+            <td><button class="btn-action" onclick="deleteRow(this)">🗑️ Delete</button></td>
+        `;
 
-    // Append row to active live grid dashboard array viewport
-    userTableBody.appendChild(createdTableRowRow);
+        // Append row to active live grid dashboard array viewport
+        if (userTableBody) {
+            userTableBody.appendChild(createdTableRowRow);
+        }
 
-    // Hide active dialog wrapper workflow automatically
-    closeModalWindow();
-});
+        // Hide active dialog wrapper workflow automatically
+        closeModalWindow();
+    });
+}
 
 // Custom Trigger Handler Function Execution To Remove Individual Rows
 function deleteRow(actionButtonTarget) {
@@ -59,24 +65,35 @@ function deleteRow(actionButtonTarget) {
         actionButtonTarget.closest('tr').remove();
     }
 }
-    document.getElementById('search-users').addEventListener('keyup', function() {
-    // 1. Get the text the user typed and convert it to lowercase
-    let filter = this.value.toLowerCase();
+
+// FIX: Safe search wrapper logic initialization
+document.addEventListener('DOMContentLoaded', () => {
+    const searchBox = document.getElementById('search-users');
     
-    // 2. Select all rows inside your table body
-    let rows = document.querySelectorAll('table tbody tr');
-    
-    // 3. Loop through each row to check if it matches the search query
-    rows.forEach(row => {
-        // Get the text content of the Name and Email columns
-        let name = row.cells[0].textContent.toLowerCase();
-        let email = row.cells[1].textContent.toLowerCase();
-        
-        // If either the name or email includes the search text, show the row; otherwise, hide it
-        if (name.includes(filter) || email.includes(filter)) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
-    });
+    if (searchBox) {
+        searchBox.addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            
+            // Grabs rows specifically inside your designated body element
+            if (userTableBody) {
+                let rows = userTableBody.querySelectorAll('tr');
+                
+                rows.forEach(row => {
+                    // Safe verification checks before accessing text arrays
+                    let nameCell = row.cells[0];
+                    let emailCell = row.cells[1];
+                    
+                    let name = nameCell ? nameCell.textContent.toLowerCase() : '';
+                    let email = emailCell ? emailCell.textContent.toLowerCase() : '';
+                    
+                    // If either matches the typed sequence, show the element
+                    if (name.includes(filter) || email.includes(filter)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+        });
+    }
 });
