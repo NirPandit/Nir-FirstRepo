@@ -30,8 +30,9 @@
 
             <!-- Search Bar Layout Component -->
             <div class="card">
-                <input type="text" class="form-control-search" placeholder="Search users...">
+                <input type="text" id="search-users" class="form-control-search" placeholder="Search users...">
             </div>
+            
 
             <!-- Data Table Dashboard Component -->
             <div class="table-card">
@@ -47,9 +48,21 @@
                     <tbody id="userTableBody">
                         <!-- Default Existing Data Row for Prototype Testing -->
                         <tr>
-                            <td style="font-weight: 600;">Rahul Sharma</td>
-                            <td>rahul@example.com</td>
+                            <td style="font-weight: 600;">Vardan Sharma</td>
+                            <td>Vardan@gmail.com</td>
                             <td><span class="badge bg-success">Admin</span></td>
+                            <td><button class="btn-action" onclick="deleteRow(this)">🗑️ Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">Nirdesh Sharma</td>
+                            <td>nirsharma@gmail.com</td>
+                            <td><span class="badge bg-success">Developer</span></td>
+                            <td><button class="btn-action" onclick="deleteRow(this)">🗑️ Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">Priya Sharma</td>
+                            <td>Priya@outlook.com</td>
+                            <td><span class="badge bg-success">User</span></td>
                             <td><button class="btn-action" onclick="deleteRow(this)">🗑️ Delete</button></td>
                         </tr>
                     </tbody>
